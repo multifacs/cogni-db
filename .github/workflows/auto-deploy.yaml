@@ -15,9 +15,19 @@ jobs:
         # https://stackoverflow.com/a/70447517
         run: |
           mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
+          
           ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+          cat <<EOF >> ~/.ssh/known_hosts
+          {{ secrets.HOSTS }}
+          EOF
+    
+          # Verify connection (optional)
+          ssh -o StrictHostKeyChecking=yes -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} echo "Host verified"
 
           # Verify GitHub connection (optional)
           # ssh -vT git@github.com
