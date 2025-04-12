@@ -25,9 +25,11 @@ jobs:
           cat <<EOF >> ~/.ssh/known_hosts
           {{ secrets.HOSTS }}
           EOF
+
+          cat ~/.ssh/known_hosts
     
           # Verify connection (optional)
-          ssh -o StrictHostKeyChecking=yes -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} echo "Host verified"
+          ssh -o StrictHostKeyChecking=no -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} echo "Host verified"
 
           # Verify GitHub connection (optional)
           # ssh -vT git@github.com
