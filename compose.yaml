@@ -4,9 +4,9 @@ services:
   rest-api:
     build: .
     environment:
-      - DB_PATH=/data/database.sqlite
+      - DB_PATH=/app/data/db.sqlite
     volumes:
-      - /root/data:/app/dist/models/data/
+      - /root/data:/app/data
     stdin_open: true
     tty: true
     ports:
