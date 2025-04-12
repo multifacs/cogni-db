@@ -23,7 +23,7 @@ jobs:
           # ssh-keyscan github.com >> ~/.ssh/known_hosts
 
           cat <<EOF >> ~/.ssh/known_hosts
-          {{ secrets.HOSTS }}
+          ${{ secrets.HOSTS }}
           EOF
 
           cat ~/.ssh/known_hosts
