@@ -6,7 +6,7 @@ on:
 
 jobs:
   run_pull:
-    name: run pull
+    name: Run, Pull and Docker Compose Up
     runs-on: ubuntu-latest
 
     steps:
@@ -38,6 +38,8 @@ jobs:
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
             "cd ${{ secrets.WORK_DIR }} && \
              git checkout ${{ secrets.MAIN_BRANCH }} && \
-             git pull"
+             git pull && \
+             docker compose down && \
+             docker compose up -d"
       - name: cleanup
         run: rm -rf ~/.ssh
