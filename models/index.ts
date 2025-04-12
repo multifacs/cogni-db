@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize } from "sequelize";
 import path from "path";
 
 const DB_PATH = process.env.DB_PATH as string;

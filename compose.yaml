@@ -11,3 +11,12 @@ services:
     tty: true
     ports:
       - 3000:3000
+
+  db-viewer:
+    image: coleifer/sqlite-web:latest
+    ports:
+      - 8012:8080
+    volumes:
+      - /root/data:/data
+    environment:
+      - SQLITE_DATABASE=db.sqlite
