@@ -2,15 +2,14 @@ import { Request, Response } from "express";
 import {
   MathAttempt,
   MemoryAttempt,
+  MunsterbergAttempt,
   Session,
   StroopAttempt,
   SwallowAttempt,
-  User,
 } from "../models";
 import type {
   MetaResult,
   RegularResult,
-  ResultInfo,
   TestResultMap,
 } from "./types/result.type";
 
@@ -103,6 +102,22 @@ export const getResults = async (req: Request, res: Response) => {
         }));
       }
 
+      if (testType === "munsterberg") {
+        const results = await MunsterbergAttempt.findAll({
+          where: { sessionId: session.id },
+          order: [["attempt", "ASC"]], // Сортируем попытки по времени
+        });
+
+        attempts = results.map((x) => ({
+          word: x.word,
+          row: x.row,
+          col: x.col,
+          guessed: x.guessed,
+          attempt: x.attempt,
+          time: x.time,
+        }));
+      }
+
       return {
         sessionId: session.id,
         createdAt: session.createdAt, // Дата создания сессии
@@ -186,7 +201,8 @@ const createAttempt = async (
     if (
       testType === "memory" &&
       "word" in resultData &&
-      !("color" in resultData)
+      !("color" in resultData) &&
+      !("row" in resultData)
     ) {
       const newAttempt = await MemoryAttempt.create({
         attempt: resultData.attempt,
@@ -209,6 +225,19 @@ const createAttempt = async (
         correctAnswer: resultData.correctAnswer,
         userAnswer: resultData.userAnswer,
         isCorrect: resultData.isCorrect,
+        sessionId: sessionId,
+      });
+      return newAttempt.id;
+    }
+
+    if (testType === "munsterberg" && "row" in resultData) {
+      const newAttempt = await MunsterbergAttempt.create({
+        word: resultData.word,
+        row: resultData.row,
+        col: resultData.col,
+        guessed: resultData.guessed,
+        attempt: resultData.attempt,
+        time: resultData.time,
         sessionId: sessionId,
       });
       return newAttempt.id;

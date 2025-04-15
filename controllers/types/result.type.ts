@@ -1,14 +1,16 @@
 import { MathInput } from "models/types/tests/math.type";
 import { MemoryInput } from "models/types/tests/memory.type";
+import { MunsterbergInput } from "models/types/tests/munsterberg.type";
 import { StroopInput } from "models/types/tests/stroop.type";
 import { SwallowInput } from "models/types/tests/swallow.type";
 
 export type TestResultMap = {
   math: MathInput;
   stroop: StroopInput;
+  munsterberg: MunsterbergInput;
   memory: MemoryInput;
   swallow: SwallowInput;
-  // campimetry: CampimetryResult[];
+  // campimetry: CampimetryInput;
   // можно добавлять дальше
 };
 
