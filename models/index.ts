@@ -10,8 +10,22 @@ const sequelize = new Sequelize({
   storage: filepath,
 });
 
-console.log("DB file created at", filepath);
+console.log("DB file created or found at", filepath);
 
 import { User } from "./user.model";
+import { Session } from "./session.model";
 
-export { sequelize, User };
+import { StroopAttempt } from "./tests/stroop.model";
+import { MathAttempt } from "./tests/math.model";
+import { MemoryAttempt } from "./tests/memory.model";
+import { SwallowAttempt } from "./tests/swallow.model";
+
+export {
+  sequelize,
+  User,
+  StroopAttempt,
+  MathAttempt,
+  MemoryAttempt,
+  SwallowAttempt,
+  Session,
+};
