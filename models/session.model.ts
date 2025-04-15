@@ -39,7 +39,7 @@ SessionModel.init(
   },
   {
     sequelize,
-    modelName: "Session",
+    modelName: "TestSession",
     timestamps: true, // Автоматические поля createdAt/updatedAt
   }
 );
