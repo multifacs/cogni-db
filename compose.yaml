@@ -5,6 +5,7 @@ services:
     build: .
     environment:
       - DB_PATH=/app/data/db.sqlite
+      - MODE=PROD
     volumes:
       - /root/data:/app/data
     stdin_open: true
