@@ -5,6 +5,25 @@ import { CreateUserInput } from "../models/types/user.type";
 export const getUser = async (req: Request, res: Response) => {
   try {
     const userInput: CreateUserInput = req.body;
+    const id = req.query.id;
+
+    console.log(id);
+
+    // Find by id param
+    if (id && typeof id == "string") {
+      // Ищем существующего пользователя
+      const existingUser = await User.findOne({
+        where: {
+          id,
+        },
+      });
+      if (existingUser) {
+        res.json(existingUser);
+        return;
+      }
+      res.json({ user: "none" });
+      return;
+    }
 
     if (userInput == undefined) {
       res.status(400).json({ error: "Req body is required" });
