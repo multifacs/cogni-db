@@ -10,7 +10,7 @@
     "build": "tsc",
     "start": "node .",
     "watch": "tsc -w",
-    "dev": "nodemon --env-file=.env .",
+    "dev": "nodemon --env-file=.env . --host",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

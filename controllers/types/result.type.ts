@@ -1,3 +1,4 @@
+import { CampimetryInput } from "models/types/tests/campimetry.type";
 import { MathInput } from "models/types/tests/math.type";
 import { MemoryInput } from "models/types/tests/memory.type";
 import { MunsterbergInput } from "models/types/tests/munsterberg.type";
@@ -8,6 +9,7 @@ export type TestResultMap = {
   math: MathInput;
   stroop: StroopInput;
   munsterberg: MunsterbergInput;
+  campimetry: CampimetryInput;
   memory: MemoryInput;
   swallow: SwallowInput;
   // campimetry: CampimetryInput;

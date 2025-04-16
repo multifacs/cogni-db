@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {
+  CampimetryAttempt,
   MathAttempt,
   MemoryAttempt,
   MunsterbergAttempt,
@@ -114,6 +115,24 @@ export const getResults = async (req: Request, res: Response) => {
           col: x.col,
           guessed: x.guessed,
           attempt: x.attempt,
+          time: x.time,
+        }));
+      }
+
+      if (testType === "campimetry") {
+        const results = await CampimetryAttempt.findAll({
+          where: { sessionId: session.id },
+          order: [["attempt", "ASC"]], // Сортируем попытки по времени
+        });
+
+        attempts = results.map((x) => ({
+          attempt: x.attempt,
+          stage: x.stage,
+          silhouette: x.silhouette,
+          channel: x.channel,
+          op: x.op,
+          color: x.color,
+          delta: x.delta,
           time: x.time,
         }));
       }
@@ -237,6 +256,21 @@ const createAttempt = async (
         col: resultData.col,
         guessed: resultData.guessed,
         attempt: resultData.attempt,
+        time: resultData.time,
+        sessionId: sessionId,
+      });
+      return newAttempt.id;
+    }
+
+    if (testType === "campimetry" && "silhouette" in resultData) {
+      const newAttempt = await CampimetryAttempt.create({
+        attempt: resultData.attempt,
+        stage: resultData.stage,
+        silhouette: resultData.silhouette,
+        channel: resultData.channel,
+        op: resultData.op,
+        color: resultData.color,
+        delta: resultData.delta,
         time: resultData.time,
         sessionId: sessionId,
       });

@@ -18,6 +18,7 @@ import { Session } from "./session.model";
 import { StroopAttempt } from "./tests/stroop.model";
 import { MathAttempt } from "./tests/math.model";
 import { MunsterbergAttempt } from "./tests/munsterberg.model";
+import { CampimetryAttempt } from "./tests/campimetry.model";
 import { MemoryAttempt } from "./tests/memory.model";
 import { SwallowAttempt } from "./tests/swallow.model";
 
@@ -27,6 +28,7 @@ export {
   StroopAttempt,
   MathAttempt,
   MunsterbergAttempt,
+  CampimetryAttempt,
   MemoryAttempt,
   SwallowAttempt,
   Session,
