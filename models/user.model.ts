@@ -12,9 +12,9 @@ class UserModel extends Model<User, UserCreationAttributes> implements User {
   public lastname!: string;
   public birthdate!: Date;
   public sex!: string;
-  public cataract!: boolean;
-  public colorist!: boolean;
-  public neuro!: boolean;
+  public cataract!: boolean | null;
+  public colorist!: boolean | null;
+  public neuro!: boolean | null;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -53,18 +53,18 @@ UserModel.init(
     },
     cataract: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
+      allowNull: true,
+      defaultValue: null,
     },
     colorist: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
+      allowNull: true,
+      defaultValue: null,
     },
     neuro: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
+      allowNull: true,
+      defaultValue: null,
     },
   },
   {

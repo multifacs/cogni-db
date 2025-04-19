@@ -7,8 +7,8 @@ const port = 3000;
 import { sequelize } from "./models/index";
 // Sync models with database
 console.log(`Starting in ${MODE} mode`)
-if (MODE === "DEV") sequelize.sync({ force: true });
-if (MODE === "PROD") sequelize.sync({ alter: true });
+if (MODE === "DEV") sequelize.sync({ alter: true });
+if (MODE === "PROD") sequelize.sync({ force: true });
 
 // Start server
 app.listen(port, () => {

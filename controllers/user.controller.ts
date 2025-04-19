@@ -39,6 +39,7 @@ export const getUser = async (req: Request, res: Response) => {
 
     const { firstname, lastname, birthdate, sex, cataract, colorist, neuro } =
       userInput;
+    console.log(userInput)
 
     // Ищем существующего пользователя
     const existingUser = await User.findOne({
