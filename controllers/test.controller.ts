@@ -29,6 +29,7 @@ export const getResults = async (req: Request, res: Response) => {
     // Создаем массив промисов для загрузки всех данных
     const sessionPromises = sessions.map(async (session) => {
       let attempts: TestResultMap[typeof testType][] = [];
+      let meta = null;
 
       if (testType === "math") {
         const results = await MathAttempt.findAll({
@@ -70,6 +71,7 @@ export const getResults = async (req: Request, res: Response) => {
       }
 
       if (testType === "memory") {
+        meta = session.meta;
         const results = await MemoryAttempt.findAll({
           where: { sessionId: session.id },
           order: [["attempt", "ASC"]], // Сортируем попытки по времени
@@ -104,6 +106,7 @@ export const getResults = async (req: Request, res: Response) => {
       }
 
       if (testType === "munsterberg") {
+        meta = session.meta;
         const results = await MunsterbergAttempt.findAll({
           where: { sessionId: session.id },
           order: [["attempt", "ASC"]], // Сортируем попытки по времени
@@ -141,6 +144,7 @@ export const getResults = async (req: Request, res: Response) => {
         sessionId: session.id,
         createdAt: session.createdAt, // Дата создания сессии
         attempts,
+        meta
       };
     });
 
