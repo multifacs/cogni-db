@@ -2,12 +2,15 @@ name: Deploy
 
 on: workflow_dispatch
 
+env:
+  DOCKER_HOST: ${{ vars.DOCKER_HOST }}
+
 jobs:
   run_pull:
     name: Run, Pull and Docker Compose Up
     runs-on: ubuntu-latest
 
-    steps:  
+    steps:
       - name: install ssh keys
         # check this thread to understand why its needed:
         # https://stackoverflow.com/a/70447517
