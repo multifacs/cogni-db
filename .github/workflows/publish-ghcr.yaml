@@ -9,6 +9,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build and push the image
         run: |
-          docker login --username ${{ github.actor }} --password ${{ secrets.GH_PAT }}
+          docker login --username ${{ github.actor }} --password-stdin ${{ secrets.GH_PAT }} ghcr.io
           docker build . --tag ghcr.io/${{ github.actor }}/cogni-db-ghcr:latest
           docker push ghcr.io/${{ github.actor }}/cogni-db-ghcr:latest
