@@ -7,7 +7,7 @@ jobs:
     name: Run, Pull and Docker Compose Up
     runs-on: ubuntu-latest
 
-    steps:
+    steps:  
       - name: install ssh keys
         # check this thread to understand why its needed:
         # https://stackoverflow.com/a/70447517
@@ -38,6 +38,7 @@ jobs:
         run: |
           docker login --username ${{ github.actor }} --password ${{ secrets.GH_PAT }} ghcr.io
           docker compose config
+          echo $DOCKER_HOST
           docker compose up -d --pull always --remove-orphans --force-recreate --wait --wait-timeout 30
           docker ps
 
