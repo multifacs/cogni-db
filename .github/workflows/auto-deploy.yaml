@@ -1,8 +1,4 @@
-on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
+name: Deploy
 
 jobs:
   run_pull:
@@ -19,7 +15,7 @@ jobs:
 
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          
+
           # ssh-keyscan github.com >> ~/.ssh/known_hosts
 
           cat <<EOF >> ~/.ssh/known_hosts
@@ -27,19 +23,21 @@ jobs:
           EOF
 
           cat ~/.ssh/known_hosts
-    
+
           # Verify connection (optional)
           ssh -o StrictHostKeyChecking=no -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} echo "Host verified"
 
           # Verify GitHub connection (optional)
           # ssh -vT git@github.com
+
+      - uses: actions/checkout@v4
+
       - name: connect and pull
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            "cd ${{ secrets.WORK_DIR }} && \
-             git checkout ${{ secrets.MAIN_BRANCH }} && \
-             git pull && \
-             docker compose down && \
-             docker compose up -d --build"
+          docker login --username ${{ github.actor }} --password ${{ secrets.GH_PAT }} ghcr.io
+          docker compose config
+          docker compose up -d --pull always --remove-orphans --force-recreate --wait --wait-timeout 30
+          docker ps
+
       - name: cleanup
         run: rm -rf ~/.ssh

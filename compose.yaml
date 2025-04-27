@@ -2,6 +2,7 @@ name: rest-api
 
 services:
   rest-api:
+    image: ghcr.io/multifacs/cogni-db-ghcr:latest
     build: .
     environment:
       - DB_PATH=/app/data/db.sqlite
