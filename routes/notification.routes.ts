@@ -23,6 +23,7 @@ let subscriptions: webpush.PushSubscription[] = [];
 // POST /api/notifications — сохранить подписку
 router.post("/", (req: any, res: any) => {
   const subscription = req.body;
+  console.log(subscription, vapidKeys)
 
   if (!subscription || !subscription.endpoint) {
     return res.status(400).json({ error: "Некорректная подписка" });
