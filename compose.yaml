@@ -7,6 +7,8 @@ services:
     environment:
       - DB_PATH=/app/data/db.sqlite
       - MODE=PROD
+      - VAPID_PUBLIC_KEY=BM_scxMu6VHhleeNYjLTsc-XCpwYa_59VQYCdZiDOnfuwVlcmHivUqrK2FiwnK-wdXe9ROj7hRSMPruMEQCZrjs
+      - VAPID_PRIVATE_KEY=vEwbPpKPNWNdzxAjKGt1W4sFgFckOPmxNnWLf1YSI0k
     volumes:
       - /root/data:/app/data
     stdin_open: true
