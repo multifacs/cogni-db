@@ -57,7 +57,7 @@ export const getUser = async (req: Request, res: Response) => {
 
     // Если пользователь существует - возвращаем его ID
     if (existingUser) {
-      res.json({ id: existingUser.id });
+      res.json(existingUser);
       return;
     }
     res.json({ user: "none" });
