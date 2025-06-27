@@ -18,10 +18,10 @@ export const getUser = async (req: Request, res: Response) => {
         },
       });
       if (existingUser) {
-        res.json(existingUser);
+        res.json({ user: existingUser });
         return;
       }
-      res.json({ user: "none" });
+      res.json({ user: null });
       return;
     }
 
@@ -37,9 +37,7 @@ export const getUser = async (req: Request, res: Response) => {
       return;
     }
 
-    const { firstname, lastname, birthdate, sex, cataract, colorist, neuro } =
-      userInput;
-    console.log(userInput);
+    const { firstname, lastname, birthdate, sex } = userInput;
 
     // Ищем существующего пользователя
     const existingUser = await User.findOne({
@@ -48,19 +46,15 @@ export const getUser = async (req: Request, res: Response) => {
         lastname,
         birthdate,
         sex,
-        cataract,
-        colorist,
-        neuro,
       },
-      attributes: ["id"],
     });
 
     // Если пользователь существует - возвращаем его ID
     if (existingUser) {
-      res.json(existingUser);
+      res.json({ user: existingUser });
       return;
     }
-    res.json({ user: "none" });
+    res.json({ user: null });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
@@ -72,10 +66,6 @@ function checkUserInput(userInput: CreateUserInput) {
   if (!("lastname" in userInput)) isCorrect = false;
   if (!("birthdate" in userInput)) isCorrect = false;
   if (!("sex" in userInput)) isCorrect = false;
-  if (!("cataract" in userInput)) isCorrect = false;
-  if (!("colorist" in userInput)) isCorrect = false;
-  if (!("neuro" in userInput)) isCorrect = false;
-  if (!("firstname" in userInput)) isCorrect = false;
   return isCorrect;
 }
 
@@ -90,8 +80,7 @@ export const createUser = async (
       return;
     }
 
-    const { firstname, lastname, birthdate, sex, cataract, colorist, neuro } =
-      userInput;
+    const { firstname, lastname, birthdate, sex } = userInput;
 
     // Ищем существующего пользователя
     const existingUser = await User.findOne({
@@ -100,16 +89,12 @@ export const createUser = async (
         lastname,
         birthdate,
         sex,
-        cataract,
-        colorist,
-        neuro,
       },
-      attributes: ["id"],
     });
 
     // Если пользователь существует - возвращаем его ID
     if (existingUser) {
-      res.json({ id: existingUser.id });
+      res.json({ user: existingUser });
       return;
     }
 
@@ -119,12 +104,9 @@ export const createUser = async (
       lastname,
       birthdate,
       sex,
-      cataract: cataract || false,
-      colorist: colorist || false,
-      neuro: neuro || false,
     });
 
-    res.status(201).json({ id: newUser.id });
+    res.status(201).json({ user: newUser });
   } catch (error) {
     console.error("Error in createUser:", error);
     res.status(500).json({ error: "Failed to create user" });
