@@ -20,8 +20,10 @@
   "dependencies": {
     "@types/express": "^5.0.1",
     "@types/web-push": "^3.6.4",
+    "better-sqlite3": "^12.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.44.2",
     "express": "^5.1.0",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
