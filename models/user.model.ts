@@ -12,9 +12,6 @@ class UserModel extends Model<User, UserCreationAttributes> implements User {
   public lastname!: string;
   public birthdate!: Date;
   public sex!: string;
-  public cataract!: boolean | null;
-  public colorist!: boolean | null;
-  public neuro!: boolean | null;
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -50,21 +47,6 @@ UserModel.init(
       validate: {
         isIn: [["male", "female"]], // Валидация значений
       },
-    },
-    cataract: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: null,
-    },
-    colorist: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: null,
-    },
-    neuro: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: null,
     },
   },
   {

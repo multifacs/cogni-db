@@ -4,9 +4,6 @@ export type User = {
   lastname: string;
   birthdate: Date;
   sex: string;
-  cataract?: boolean | null;
-  colorist?: boolean | null;
-  neuro?: boolean | null;
   createdAt?: Date;
   updatedAt?: Date;
 };
